@@ -51,12 +51,46 @@ trie::trie(trie &&rhs) {
 }
 
 trie::trie(const trie &rhs) {
-    if(&rhs == this) return;
-    vector<string>& words = ;
-    
-    for(auto value : words){
-        insert(value);
+    trie temp;
+    temp.m_root= rhs.m_root;
+    trie_node* current=rhs.m_root;
+    vector<string> words(m_size);
+    int position=0;
+    while(true){
+        for(int i=0;i<128;i++){
+            if(current->children[i]){
+                i=0;
+                current=current->children[i];
+                if(current->is_terminal==true){
+                    break;
+                }
+            }
+            else{
+                current=current->parent->children[i++];
+                i=0;
+            }
+        }
+        current->is_terminal=false;
+        string str;
+        while (current->parent) {
+            if (current->payload == '\0') {
+
+            } else {
+                str.push_back(current->payload);
+            }
+            current = current->parent;
+        }
+
+        reverse(str.begin(), str.end());
+        words.push_back(str);
+        if(words.size()==rhs.m_size){
+            break;
+        }
     }
+    for(auto value : words){
+        temp.insert(value);
+    }
+    *this=temp;
 }
 
 trie &trie::operator=(trie &&rhs) {
