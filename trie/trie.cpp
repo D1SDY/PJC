@@ -51,9 +51,13 @@ trie::trie(trie &&rhs) {
 }
 
 trie::trie(const trie &rhs) {
-    if(&rhs == this) return;
-    vector<string>& words = ;
-    
+    vector<string> words=rhs.search_by_prefix("");
+
+    if (rhs.m_root->payload==' '){
+        words.push_back("");
+    }
+    m_root=new trie_node();
+    m_size=0;
     for(auto value : words){
         insert(value);
     }
@@ -196,7 +200,47 @@ bool trie::empty() const {
 }
 
 vector<string> trie::search_by_prefix(const string &prefix) const {
-    return vector<string>();
+    vector<string> words={};
+    string word="";
+    bool isFound=false;
+    int i=0;
+    trie_node* current=m_root;
+
+    while(prefix[i] != '\0'){
+        for (int j=0;j<128;j++){
+            if(current->children[j]){
+                if(current->children[j]->payload==prefix[i]){
+                    current=current->children[j];
+                    word.push_back(prefix[i]);
+                    isFound=true;
+                    break;
+                }
+            }
+        }
+        if(isFound==true){
+            isFound=false;
+            i++;
+        }else{
+            return words;
+        }
+    }
+    return gelAllWords(words,current,word);
+}
+
+vector<string> trie::gelAllWords(vector<string> vector, trie_node *pNode, string basicString) const {
+    if (pNode->is_terminal){
+        vector.push_back(basicString);
+    }
+    for (int i = 0; i < 128; i++){
+        if (pNode->children[i] != nullptr){
+            trie_node* current=pNode->children[i];
+            basicString.push_back(current->payload);
+            vector = gelAllWords(vector, current, basicString);
+            basicString.pop_back();
+        }
+    }
+
+    return vector;
 }
 
 vector<string> trie::get_prefixes(const string &str) const {

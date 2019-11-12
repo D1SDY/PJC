@@ -135,9 +135,9 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Catch.Iterator" />
         <item itemvalue="Catch.Copy" />
         <item itemvalue="Catch.MY" />
-        <item itemvalue="Catch.Iterator" />
         <item itemvalue="Catch.All in tests-trie-02.cpp" />
         <item itemvalue="Catch.MY{" />
       </list>
@@ -162,7 +162,7 @@
       <workItem from="1573112848672" duration="2639000" />
       <workItem from="1573146181914" duration="67191000" />
       <workItem from="1573550523867" duration="3000" />
-      <workItem from="1573551171590" duration="1392000" />
+      <workItem from="1573551171590" duration="14181000" />
     </task>
     <servers />
   </component>
@@ -179,7 +179,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/trie.cpp</url>
-          <line>312</line>
+          <line>356</line>
           <option name="timeStamp" value="85" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
@@ -188,13 +188,8 @@
           <option name="timeStamp" value="102" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/tests-trie-03.cpp</url>
-          <line>26</line>
-          <option name="timeStamp" value="111" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/trie.cpp</url>
-          <line>86</line>
+          <line>90</line>
           <option name="timeStamp" value="115" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
