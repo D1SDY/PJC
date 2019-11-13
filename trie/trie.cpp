@@ -8,7 +8,33 @@
 
 using namespace std;
 
-int i = 0;
+void deleteTrie(trie_node *pNode) {
+    for(int i=0;i<128;i++){
+        if(pNode->children[i]){
+            deleteTrie(pNode->children[i]);
+        }
+    }
+    if(pNode!= nullptr){
+        delete pNode;
+    }
+}
+
+
+vector<string> gelAllWords(vector<string> vector, trie_node *pNode, string basicString){
+    if (pNode->is_terminal){
+        vector.push_back(basicString);
+    }
+    for (int i = 0; i < 128; i++){
+        if (pNode->children[i] != nullptr){
+            trie_node* current=pNode->children[i];
+            basicString.push_back(current->payload);
+            vector = gelAllWords(vector, current, basicString);
+            basicString.pop_back();
+        }
+    }
+
+    return vector;
+}
 
 trie::trie(const vector<string> &strings) {
     m_root = new trie_node;
@@ -18,36 +44,39 @@ trie::trie(const vector<string> &strings) {
 }
 
 trie::trie() {
-    m_root = new trie_node;
+    m_root = new trie_node();
 }
 
 trie::~trie() {
-    if (m_root) {
-        stack<trie_node*> nodes;
-        nodes.push(m_root);
-
-        while (!nodes.empty()) {
-            auto current = nodes.top();
-            nodes.pop();
-            for(int i=0;i<128;i++){
-                if(current->children[i]){
-                    nodes.push(current->children[i]);
-                }
-            }
-            delete current;
-        }
-    }
-    m_root= nullptr;
+   trie_node* current=m_root;
+   deleteTrie(current);
+    m_root= new trie_node();
     m_size=0;
 }
 
 trie &trie::operator=(const trie &rhs) {
-    //return <#initializer#>;
+    vector<string> words=rhs.search_by_prefix("");
+    if(rhs.m_root->payload==' '){
+        words.push_back("");
+    }
+    deleteTrie(m_root);
+    m_root=new trie_node();
+    m_size=0;
+    for(string ele:words){
+        this->insert(ele);
+    }
+    return *this;
 }
 
 trie::trie(trie &&rhs) {
     m_root = rhs.m_root;
-    rhs.m_root = nullptr;
+    vector<string> words=rhs.get_prefixes("");
+    if(rhs.m_root->payload==' '){
+        words.push_back("");
+    }
+    for(string ele:words){
+        insert(ele);
+    }
 }
 
 trie::trie(const trie &rhs) {
@@ -64,7 +93,17 @@ trie::trie(const trie &rhs) {
 }
 
 trie &trie::operator=(trie &&rhs) {
-    //return <#initializer#>;
+    vector<string> words=rhs.search_by_prefix("");
+    if(rhs.m_root->payload==' '){
+        words.push_back("");
+    }
+    deleteTrie(m_root);
+    m_root=new trie_node();
+    m_size=0;
+    for(string ele:words){
+        this->insert(ele);
+    }
+    return *this;
 }
 
 bool trie::erase(const string &str) {
@@ -126,7 +165,7 @@ bool trie::insert(const string &str) {
         }
         for (int i = 0; i < len; i++) {
             for (int j = 0; j < 128; j++) {
-                if (current->children[j]) {
+                if (current->children[j]!= nullptr) {
                     if (current->children[j]->payload == str[i]) {
                         current = current->children[j];
                         break;
@@ -227,22 +266,6 @@ vector<string> trie::search_by_prefix(const string &prefix) const {
     return gelAllWords(words,current,word);
 }
 
-vector<string> trie::gelAllWords(vector<string> vector, trie_node *pNode, string basicString) const {
-    if (pNode->is_terminal){
-        vector.push_back(basicString);
-    }
-    for (int i = 0; i < 128; i++){
-        if (pNode->children[i] != nullptr){
-            trie_node* current=pNode->children[i];
-            basicString.push_back(current->payload);
-            vector = gelAllWords(vector, current, basicString);
-            basicString.pop_back();
-        }
-    }
-
-    return vector;
-}
-
 vector<string> trie::get_prefixes(const string &str) const {
     return vector<string>();
 }
@@ -266,12 +289,71 @@ trie::const_iterator trie::end() const {
     return nullptr;
 }
 
+bool compare(vector<string> vec1,vector<string> vec2){
+    bool status=false;
+    for(int i=0;i<vec1.size();i++){
+        for(int j=0;j<vec2.size();j++){
+            if(vec1[i]==vec2[j]){
+                status=true;
+                break;
+            }
+            if(j==vec2.size()-1&&status==false){
+                return false;
+            }
+        }
+        if(status==false||i==vec2.size()-1){
+            break;
+        }
+        status=false;
+    }
+    return status;
+}
+
 bool trie::operator==(const trie &rhs) const {
-    return false;
+    if(this->m_size==0&&rhs.m_size==0){
+        return true;
+    }
+    else if(this->m_size<rhs.m_size){
+        return true;
+    }
+    else if(this->m_size>rhs.m_size){
+        return false;
+    }
+    else{
+        vector<string> words1=rhs.search_by_prefix("");
+        vector<string> words2=this->search_by_prefix("");
+        bool status=compare(words1,words2);
+        return status;
+    }
 }
 
 bool trie::operator<(const trie &rhs) const {
-    return false;
+    vector<string> words1=rhs.get_prefixes("");
+    vector<string> words2=this->get_prefixes("");
+    bool status;
+    if(this->m_size==0&&rhs.m_size==0){
+        return false;
+    }
+    if(this->m_size<rhs.m_size){
+        return true;
+    }
+    else{
+        int len=words1.size();
+        int result=0;
+        for(int i=0;i<len;i++){
+            char str1[words1[i].size()+1];
+            strcpy(str1,words1[i].c_str());
+            char str2[words2[i].size()+1];
+            strcpy(str2,words2[i].c_str());
+            result=+strcmp(str2,str1);
+        }
+        if(result>0||result==0){
+            return false;
+        }
+        else if(result<0){
+            return true;
+        }
+    }
 }
 
 trie trie::operator&(trie const &rhs) const {
@@ -283,27 +365,44 @@ trie trie::operator|(trie const &rhs) const {
 }
 
 void trie::swap(trie &rhs) {
+    trie_node* current=this->m_root;
+    this->m_root=rhs.m_root;
+    rhs.m_root=current;
+    size_t currentSize=this->m_size;
+    this->m_size=rhs.m_size;
+    rhs.m_size=currentSize;
 
 }
 
+
 bool operator!=(const trie &lhs, const trie &rhs) {
-    return false;
+    vector<string> words1=rhs.search_by_prefix("");
+    vector<string> words2=lhs.search_by_prefix("");
+    if(words1.size()==0&&words2.size()==0){
+        return false;
+    }else{
+        if(compare(words1,words2)==false){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }
 
 bool operator<=(const trie &lhs, const trie &rhs) {
-    return false;
+    return !(lhs>rhs);
 }
 
 bool operator>(const trie &lhs, const trie &rhs) {
-    return false;
+    return rhs<lhs;
 }
 
 bool operator>=(const trie &lhs, const trie &rhs) {
-    return false;
+    return !(lhs>rhs);
 }
 
 void swap(trie &lhs, trie &rhs) {
-
+    lhs.swap(rhs);
 }
 
 ostream &operator<<(ostream &out, trie const &trie) {
@@ -317,79 +416,55 @@ trie::const_iterator::const_iterator(const trie_node *node) {
 trie::const_iterator &trie::const_iterator::operator++() {
     const_iterator temp = *this;
     const_iterator root = *this;
-    int position = 0;
-    while (root.current_node->parent) {
-        root.current_node = root.current_node->parent;
-    }
-    while (true) {
-        temp.current_node = temp.current_node->parent;
-        if (temp.current_node->parent == root.current_node) {
-            break;
+//    if(temp.current_node->children){
+//        for(int i=0;i<128;i++){
+//            if(temp.current_node->children[i]){
+//                temp.current_node=temp.current_node->children[i];
+//                if(temp.current_node->is_terminal==true){
+//                    break;
+//                }
+//            }
+//        }
+//        return *this=temp;
+//    }
+//    else{
+        int position = 0;
+        while (root.current_node->parent) {
+            root.current_node = root.current_node->parent;
         }
-    }
-    for (int i = 0; i < 128; i++) {
-        if (root.current_node->children[i]) {
-            if (root.current_node->children[i]->payload == temp.current_node->payload) {
-                position = i;
-                break;
+        while (temp.current_node->parent!=root.current_node) {
+            temp.current_node = temp.current_node->parent;
+        }
+        for (int i = 0; i < 128; i++) {
+            if (root.current_node->children[i]) {
+                if (root.current_node->children[i]->payload == temp.current_node->payload) {
+                    position = i;
+                    break;
+                }
             }
         }
-    }
-    position++;
-    if (root.current_node->children[position]) {
-        root = root.current_node->children[position];
-        while (true) {
-            if (root.current_node->children[0]) {
-                root.current_node = root.current_node->children[0];
+        position++;
+        if (root.current_node->children[position]) {
+            root = root.current_node->children[position];
+            while (true) {
+                if (root.current_node->children[0]) {
+                    root.current_node = root.current_node->children[0];
+                }
+                if (root.current_node->is_terminal == true) {
+                    break;
+                }
             }
-            if (root.current_node->is_terminal == true) {
-                break;
-            }
+        } else {
+            root = nullptr;
         }
-    } else {
-        root = nullptr;
-    }
 
-    return *this = root;
+        return *this = root;
+//    }
 }
 
 trie::const_iterator trie::const_iterator::operator++(int) {
-    const_iterator temp = *this;
-    const_iterator root = *this;
-    int position = 0;
-    while (root.current_node->parent) {
-        root.current_node = root.current_node->parent;
-    }
-    while (true) {
-        temp.current_node = temp.current_node->parent;
-        if (temp.current_node->parent == root.current_node) {
-            break;
-        }
-    }
-    for (int i = 0; i < 128; i++) {
-        if (root.current_node->children[i]) {
-            if (root.current_node->children[i]->payload == temp.current_node->payload) {
-                position = i;
-                break;
-            }
-        }
-    }
-    position++;
-    if (root.current_node->children[position]) {
-        root = root.current_node->children[position];
-        while (true) {
-            if (root.current_node->children[0]) {
-                root.current_node = root.current_node->children[0];
-            }
-            if (root.current_node->is_terminal == true) {
-                break;
-            }
-        }
-    } else {
-        root = nullptr;
-    }
-    return *this = root;
-
+    operator++();
+    return *this;
 }
 
 trie::const_iterator::reference trie::const_iterator::operator*() const {

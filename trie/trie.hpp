@@ -147,9 +147,6 @@ private:
     //! počet unikátních slov, které trie obsahuje
     size_t m_size = 0;
 
-    void deeleteNode(trie_node *pNode);
-
-    vector<string> gelAllWords(vector<string> vector, trie_node *pNode, string basicString) const;
 };
 
 //! 2 trie jsou si nerovné právě tehdy, když si nejsou rovné (viz operator==)

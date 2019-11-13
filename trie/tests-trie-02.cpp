@@ -18,16 +18,6 @@
     kroku fungují správně, a tudíž se na nich mohou stavět testy pro další
     funkcionalitu.
 */
-TEST_CASE("MY"){
-    SECTION("Empty string handling") {
-        trie yes({ "", "a", "b", "aaa", "aab" });
-        auto it = yes.begin();
-        REQUIRE(*it == "");
-        trie no({ "a", "b", "aaa", "aab" });
-        it = no.begin();
-        REQUIRE(*it == "a");
-    }
-}
 TEST_CASE("Iterator", "[stage2]") {
     SECTION("Default constructed iterators are equal") {
         trie::const_iterator iter1, iter2;

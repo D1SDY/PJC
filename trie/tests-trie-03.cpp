@@ -17,7 +17,6 @@
     funkcionalitu.
 */
 
-
 TEST_CASE("Copy", "[stage3]") {
     SECTION("Copy constructor") {
         SECTION("Verify that deep copy is performed") {
