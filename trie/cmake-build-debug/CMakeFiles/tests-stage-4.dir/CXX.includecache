@@ -13,11 +13,7 @@ utility
 -
 algorithm
 -
-cassert
--
-iostream
--
-stack
+string.h
 -
 
 /Users/antonstriapan/Downloads/trie/trie.hpp

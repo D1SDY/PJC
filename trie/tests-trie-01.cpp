@@ -23,6 +23,21 @@ namespace {
         }
     }
 }
+TEST_CASE("NEW ONE TEST!"){
+    trie trie;
+    SECTION("Erase in the middle of a link") {
+        insert_all(trie, { "", "a", "ab", "abc", "abcd" });
+        REQUIRE(trie.erase("ab"));
+        REQUIRE(trie.size() == 4);
+        REQUIRE_FALSE(trie.contains("ab"));
+
+        REQUIRE(trie.erase("abc"));
+        REQUIRE(trie.size() == 3);
+        REQUIRE_FALSE(trie.contains("abc"));
+
+        REQUIRE(trie.contains("abcd"));
+    }
+}
 TEST_CASE("Basics: inserts", "[stage1]") {
     trie trie;
 

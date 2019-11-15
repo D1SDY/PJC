@@ -16,17 +16,6 @@
     kroku fungují správně, a tudíž se na nich mohou stavět testy pro další
     funkcionalitu.
 */
-//TEST_CASE("NEW ONE TEST"){
-//    SECTION("An empty trie is smaller than any non-empty trie") {
-//        trie t1;
-//        trie t2({"a", "b", "abc"});
-//        REQUIRE(t1 < t2);
-//        REQUIRE(t1 <= t2);
-//        REQUIRE_FALSE(t1 > t2);
-//        REQUIRE_FALSE(t1 >= t2);
-//    }
-//}
-
 TEST_CASE("Copy", "[stage3]") {
     SECTION("Copy constructor") {
         SECTION("Verify that deep copy is performed") {

@@ -66,31 +66,31 @@
     </option>
   </component>
   <component name="RunManager" selected="CMake Application.tests-stage-3">
-    <configuration name="Get prefixes" type="CMakeCatchTestRunConfigurationType" factoryName="Catch Test" temporary="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="List" TARGET_NAME="tests-stage-4" RUN_TARGET_PROJECT_NAME="List" RUN_TARGET_NAME="tests-stage-4" TEST_CLASS="[get_prefixes]" TEST_METHOD="Get prefixes" TEST_MODE="SUITE_TEST">
+    <configuration name="Basics: erase" type="CMakeCatchTestRunConfigurationType" factoryName="Catch Test" temporary="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="List" TARGET_NAME="tests-stage-1" RUN_TARGET_PROJECT_NAME="List" RUN_TARGET_NAME="tests-stage-1" TEST_CLASS="[stage1]" TEST_METHOD="Basics: erase" TEST_MODE="SUITE_TEST">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
         <option name="BeforeTestRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="LAST" type="CMakeCatchTestRunConfigurationType" factoryName="Catch Test" temporary="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="List" TARGET_NAME="tests-stage-3" RUN_TARGET_PROJECT_NAME="List" RUN_TARGET_NAME="tests-stage-3" TEST_METHOD="LAST" TEST_MODE="SUITE_TEST">
+    <configuration name="NEW ONE TEST!" type="CMakeCatchTestRunConfigurationType" factoryName="Catch Test" temporary="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="List" TARGET_NAME="tests-stage-1" RUN_TARGET_PROJECT_NAME="List" RUN_TARGET_NAME="tests-stage-1" TEST_METHOD="NEW ONE TEST!" TEST_MODE="SUITE_TEST">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
         <option name="BeforeTestRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Move operations" type="CMakeCatchTestRunConfigurationType" factoryName="Catch Test" temporary="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="List" TARGET_NAME="tests-stage-3" RUN_TARGET_PROJECT_NAME="List" RUN_TARGET_NAME="tests-stage-3" TEST_CLASS="[stage3]" TEST_METHOD="Move operations" TEST_MODE="SUITE_TEST">
+    <configuration name="NEW" type="CMakeCatchTestRunConfigurationType" factoryName="Catch Test" temporary="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="List" TARGET_NAME="tests-stage-3" RUN_TARGET_PROJECT_NAME="List" RUN_TARGET_NAME="tests-stage-3" TEST_METHOD="NEW" TEST_MODE="SUITE_TEST">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
         <option name="BeforeTestRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="NEW ONE TEST" type="CMakeCatchTestRunConfigurationType" factoryName="Catch Test" temporary="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="List" TARGET_NAME="tests-stage-3" RUN_TARGET_PROJECT_NAME="List" RUN_TARGET_NAME="tests-stage-3" TEST_METHOD="NEW ONE TEST" TEST_MODE="SUITE_TEST">
+    <configuration name="Trie intersection" type="CMakeCatchTestRunConfigurationType" factoryName="Catch Test" temporary="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="List" TARGET_NAME="tests-stage-4" RUN_TARGET_PROJECT_NAME="List" RUN_TARGET_NAME="tests-stage-4" TEST_CLASS="[intersection]" TEST_METHOD="Trie intersection" TEST_MODE="SUITE_TEST">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
         <option name="BeforeTestRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Search by prefix" type="CMakeCatchTestRunConfigurationType" factoryName="Catch Test" temporary="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="List" TARGET_NAME="tests-stage-4" RUN_TARGET_PROJECT_NAME="List" RUN_TARGET_NAME="tests-stage-4" TEST_CLASS="[search_by_prefix]" TEST_METHOD="Search by prefix" TEST_MODE="SUITE_TEST">
+    <configuration name="Trie union" type="CMakeCatchTestRunConfigurationType" factoryName="Catch Test" temporary="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="List" TARGET_NAME="tests-stage-4" RUN_TARGET_PROJECT_NAME="List" RUN_TARGET_NAME="tests-stage-4" TEST_CLASS="[union]" TEST_METHOD="Trie union" TEST_MODE="SUITE_TEST">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
         <option name="BeforeTestRunTask" enabled="true" />
@@ -127,19 +127,19 @@
       <item itemvalue="CMake Application.tests-stage-3" />
       <item itemvalue="CMake Application.tests-stage-4" />
       <item itemvalue="CMake Application.tests-stage-5" />
-      <item itemvalue="Catch.Move operations" />
-      <item itemvalue="Catch.LAST" />
-      <item itemvalue="Catch.NEW ONE TEST" />
-      <item itemvalue="Catch.Get prefixes" />
-      <item itemvalue="Catch.Search by prefix" />
+      <item itemvalue="Catch.Basics: erase" />
+      <item itemvalue="Catch.NEW ONE TEST!" />
+      <item itemvalue="Catch.NEW" />
+      <item itemvalue="Catch.Trie union" />
+      <item itemvalue="Catch.Trie intersection" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Catch.Search by prefix" />
-        <item itemvalue="Catch.Get prefixes" />
-        <item itemvalue="Catch.NEW ONE TEST" />
-        <item itemvalue="Catch.Move operations" />
-        <item itemvalue="Catch.LAST" />
+        <item itemvalue="Catch.Trie union" />
+        <item itemvalue="Catch.Trie intersection" />
+        <item itemvalue="Catch.NEW" />
+        <item itemvalue="Catch.NEW ONE TEST!" />
+        <item itemvalue="Catch.Basics: erase" />
       </list>
     </recent_temporary>
   </component>
@@ -162,7 +162,7 @@
       <workItem from="1573112848672" duration="2639000" />
       <workItem from="1573146181914" duration="67191000" />
       <workItem from="1573550523867" duration="3000" />
-      <workItem from="1573551171590" duration="61978000" />
+      <workItem from="1573551171590" duration="71028000" />
     </task>
     <servers />
   </component>
@@ -174,7 +174,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/tests-trie-01.cpp</url>
-          <line>101</line>
+          <line>116</line>
           <option name="timeStamp" value="48" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
@@ -188,19 +188,29 @@
           <option name="timeStamp" value="221" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/tests-trie-03.cpp</url>
-          <line>205</line>
-          <option name="timeStamp" value="237" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/trie.cpp</url>
-          <line>370</line>
-          <option name="timeStamp" value="239" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/trie.cpp</url>
-          <line>301</line>
+          <line>302</line>
           <option name="timeStamp" value="241" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/tests-trie-01.cpp</url>
+          <line>84</line>
+          <option name="timeStamp" value="257" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/tests-trie-03.cpp</url>
+          <line>213</line>
+          <option name="timeStamp" value="264" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/tests-trie-04.cpp</url>
+          <line>94</line>
+          <option name="timeStamp" value="272" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/trie.cpp</url>
+          <line>402</line>
+          <option name="timeStamp" value="275" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
