@@ -9,9 +9,11 @@
 using namespace std;
 
 void deleteTrie(trie_node *pNode) {
-    for(int i=0;i<128;i++){
-        if(pNode->children[i]){
-            deleteTrie(pNode->children[i]);
+    if(pNode->children){
+        for(int i=0;i<128;i++){
+            if(pNode->children[i]){
+                deleteTrie(pNode->children[i]);
+            }
         }
     }
     if(pNode!= nullptr){
@@ -69,7 +71,8 @@ trie &trie::operator=(const trie &rhs) {
 }
 
 trie::trie(trie &&rhs) {
-    m_root = rhs.m_root;
+    m_root = new trie_node();
+    m_size=0;
     vector<string> words=rhs.get_prefixes("");
     if(rhs.m_root->payload==' '){
         words.push_back("");
@@ -415,51 +418,76 @@ trie::const_iterator::const_iterator(const trie_node *node) {
 
 trie::const_iterator &trie::const_iterator::operator++() {
     const_iterator temp = *this;
-    const_iterator root = *this;
-//    if(temp.current_node->children){
-//        for(int i=0;i<128;i++){
-//            if(temp.current_node->children[i]){
-//                temp.current_node=temp.current_node->children[i];
-//                if(temp.current_node->is_terminal==true){
-//                    break;
-//                }
-//            }
-//        }
-//        return *this=temp;
-//    }
-//    else{
-        int position = 0;
-        while (root.current_node->parent) {
-            root.current_node = root.current_node->parent;
-        }
-        while (temp.current_node->parent!=root.current_node) {
-            temp.current_node = temp.current_node->parent;
-        }
-        for (int i = 0; i < 128; i++) {
-            if (root.current_node->children[i]) {
-                if (root.current_node->children[i]->payload == temp.current_node->payload) {
-                    position = i;
-                    break;
-                }
-            }
-        }
-        position++;
-        if (root.current_node->children[position]) {
-            root = root.current_node->children[position];
-            while (true) {
-                if (root.current_node->children[0]) {
-                    root.current_node = root.current_node->children[0];
-                }
-                if (root.current_node->is_terminal == true) {
-                    break;
-                }
-            }
-        } else {
-            root = nullptr;
-        }
+    const_iterator parent = temp.current_node->parent;
+    const_iterator root=temp.current_node;
+    while(root.current_node->parent!= nullptr){
+        root.current_node=root.current_node->parent;
+    }
 
-        return *this = root;
-//    }
+    int position=0;
+    for(int j=0;j<128;j++){
+        if(temp.current_node->children[j]){
+            while(true){
+                if(temp.current_node->children[0]){
+                    temp.current_node=temp.current_node->children[0];
+                    if(temp.current_node->is_terminal==true){
+                        return *this=temp;
+                    }
+                }else{
+                    break;
+                }
+            }
+        }else{
+            for(int i=0;i<128;i++){
+                if(parent.current_node->children[i]){
+                    if(parent.current_node->children[i]->payload==temp.current_node->payload){
+                        position=i;
+                        break;
+                    }
+                }
+            }
+            if(temp.current_node->parent!=root.current_node){
+                while(!temp.current_node->parent->children[position+1]){
+                    temp.current_node=temp.current_node->parent;
+                    for(int i=0;i<128;i++){
+                        if(temp.current_node->parent->children[i]){
+                            if(temp.current_node->parent->children[i]->payload==temp.current_node->payload){
+                                position=i;
+                                break;
+                            }
+                        }
+                        else{
+                            break;
+                        }
+                    }
+                    if(temp.current_node->parent==root.current_node){
+                        break;
+                    }
+                }
+            }
+            char chr=temp.current_node->payload;
+            for(int i=0;i<128;i++){
+                if(temp.current_node->parent->children[i]){
+                    if(temp.current_node->parent->children[i]->payload==chr){
+                        position=i;
+                        break;
+                    }
+                }
+            }
+            if(temp.current_node->parent->children[position+1]){
+                temp.current_node=temp.current_node->parent->children[position+1];
+                while(!temp.current_node->is_terminal){
+                    temp.current_node=temp.current_node->children[0];
+                }
+            }else{
+                temp = nullptr;
+            }
+
+
+        }
+        return *this=temp;
+
+    }
 }
 
 trie::const_iterator trie::const_iterator::operator++(int) {
