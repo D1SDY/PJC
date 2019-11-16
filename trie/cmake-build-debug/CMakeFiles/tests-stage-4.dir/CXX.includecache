@@ -9,11 +9,11 @@
 /Users/antonstriapan/Downloads/trie/trie.cpp
 trie.hpp
 /Users/antonstriapan/Downloads/trie/trie.hpp
-utility
--
 algorithm
 -
-string.h
+cstring
+-
+stack
 -
 
 /Users/antonstriapan/Downloads/trie/trie.hpp

@@ -13,7 +13,9 @@ utility
 -
 algorithm
 -
-string.h
+cstring
+-
+stack
 -
 
 /Users/antonstriapan/Downloads/trie/trie.hpp

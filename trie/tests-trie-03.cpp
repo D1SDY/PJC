@@ -16,6 +16,16 @@
     kroku fungují správně, a tudíž se na nich mohou stavět testy pro další
     funkcionalitu.
 */
+TEST_CASE("LAST ONE"){
+    SECTION("Trie's prefix compares as smaller") {
+        trie t1({"aa", "bc", "efg"});
+        trie t2({"aa", "bc", "efg", "efgh"});
+        REQUIRE(t1 < t2);
+        REQUIRE(t1 <= t2);
+        REQUIRE_FALSE(t1 > t2);
+        REQUIRE_FALSE(t1 >= t2);
+    }
+}
 TEST_CASE("Copy", "[stage3]") {
     SECTION("Copy constructor") {
         SECTION("Verify that deep copy is performed") {

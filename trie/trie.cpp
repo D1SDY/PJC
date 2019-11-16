@@ -1,23 +1,10 @@
 #include "trie.hpp"
 
-#include <utility>
 #include <algorithm>
-#include <string.h>
+#include <cstring>
+#include <stack>
 
 using namespace std;
-
-void deleteTrie(trie_node *pNode) {
-    if (pNode->children) {
-        for (int i = 0; i < 128; ++i) {
-            if (pNode->children[i]) {
-                deleteTrie(pNode->children[i]);
-            }
-        }
-    }
-    if (pNode != nullptr) {
-        delete pNode;
-    }
-}
 
 bool findAllPrefixes(trie_node *pNode, const string &str) {
     if (str.size() == 0) {
@@ -62,20 +49,39 @@ vector<string> gelAllWords(vector<string> vector, trie_node *pNode, string basic
 
 trie::trie(const vector<string> &strings) {
     m_root = new trie_node;
-    for (int i = 0; i < strings.size(); i++) {
+    int len= static_cast<int>(strings.size());
+    for (int i = 0; i < len; i++) {
         insert(strings[i]);
     }
 }
 
 trie::trie() {
-    m_root = new trie_node();
+    m_root = new trie_node;
+    m_size = 0;
 }
 
 trie::~trie() {
-    trie_node *current = m_root;
-    deleteTrie(current);
-    m_root = new trie_node();
-    m_size = 0;
+//    deleteTrie(m_root);
+//    m_root = new trie_node();
+//    m_size = 0;
+    if (m_root) {
+        stack<trie_node*> nodes;
+        nodes.push(m_root);
+
+        while (!nodes.empty()) {
+            auto current = nodes.top();
+            nodes.pop();
+            for(int i=0;i<128;i++){
+                if(current->children[i]){
+                    nodes.push(current->children[i]);
+                }
+            }
+            delete current;
+        }
+
+    }
+    m_root= nullptr;
+    m_size=0;
 }
 
 trie &trie::operator=(const trie &rhs) {
@@ -83,7 +89,8 @@ trie &trie::operator=(const trie &rhs) {
     if (rhs.m_root->payload == ' ') {
         words.push_back("");
     }
-    deleteTrie(m_root);
+    //deleteTrie(m_root);
+    this->~trie();
     m_root = new trie_node();
     m_size = 0;
     for (string ele:words) {
@@ -122,7 +129,8 @@ trie &trie::operator=(trie &&rhs) {
     if (rhs.m_root->payload == ' ') {
         words.push_back("");
     }
-    deleteTrie(m_root);
+    //deleteTrie(m_root);
+    this->~trie();
     m_root = new trie_node();
     m_size = 0;
     for (string ele:words) {
@@ -148,7 +156,7 @@ bool trie::erase(const string &str) {
                 }
             }
         }
-        if (current->is_terminal == true) {
+        if (current->is_terminal) {
             bool isEmpty = false;
             while (true) {
                 for (int i = 0; i < 128; i++) {
@@ -188,7 +196,7 @@ bool trie::erase(const string &str) {
 }
 
 bool trie::insert(const string &str) {
-    if (contains(str) == true) {
+    if (contains(str)) {
         return false;
     } else {
         trie_node *current = m_root;
@@ -238,7 +246,7 @@ bool trie::contains(const string &str) const {
             for (int j = 0; j < 128; j++) {
                 if (current->children[j]) {
                     if (len == 1) {
-                        if (current->children[j]->payload == str[i] && current->children[j]->is_terminal == true) {
+                        if (current->children[j]->payload == str[i] && current->children[j]->is_terminal) {
                             current = current->children[j];
                             break;
                         }
@@ -253,10 +261,7 @@ bool trie::contains(const string &str) const {
                 }
             }
         }
-        if (current->is_terminal == true) {
-            return true;
-        }
-        return false;
+        return current->is_terminal;
     }
 }
 
@@ -265,10 +270,7 @@ size_t trie::size() const {
 }
 
 bool trie::empty() const {
-    if (m_size == 0) {
-        return true;
-    }
-    return false;
+    return m_size == 0;
 }
 
 vector<string> trie::search_by_prefix(const string &prefix) const {
@@ -372,7 +374,7 @@ bool trie::operator<(const trie &rhs) const {
     if (this->m_size == 0 && rhs.m_size == 0) {
         return false;
     }
-    if (this->m_size < rhs.m_size) {
+    if(words2.size()==0){
         return true;
     }
     else {
@@ -385,23 +387,33 @@ bool trie::operator<(const trie &rhs) const {
         for (int i = 0; i < len; i++) {
             int len1=words1[i].size();
             int len2=words2[i].size();
-            char str1[len1 + 1];
+            char* str1=(char*)calloc(len1+3,sizeof(char));
+            //char*  str1 = new char[len1+1];
             strcpy(str1, words2[i].c_str());
-            char str2[len2 + 1];
+            char* str2=(char*)calloc(len2+3,sizeof(char));
+            //char*  str2 = new char[len2+1];
             strcpy(str2, words1[i].c_str());
             result += strcmp(str2, str1);
+//            delete[](str1);
+//            delete[](str2);
+            free(str1);
+            free(str2);
+        }
+        if(result==0&&(words2.size()<words1.size()||words2.size()==0)){
+            return true;
         }
         if (result < 0 || result == 0) {
             return false;
         } else if (result > 0) {
             return true;
         }
+
     }
 }
 
 trie trie::operator&(trie const &rhs) const {
     trie trie;
-    trie.m_root=new trie_node;
+    //trie.m_root=new trie_node;
     trie.m_size=0;
     vector<string> words1=this->search_by_prefix("");
     vector<string> words2=rhs.search_by_prefix("");
@@ -425,7 +437,7 @@ trie trie::operator&(trie const &rhs) const {
 
 trie trie::operator|(trie const &rhs) const {
     trie trie;
-    trie.m_root=new trie_node;
+    //trie.m_root=new trie_node;
     trie.m_size=0;
     vector<string> words1=this->search_by_prefix("");
     vector<string> words2=rhs.search_by_prefix("");
@@ -465,7 +477,42 @@ bool operator!=(const trie &lhs, const trie &rhs) {
 }
 
 bool operator<=(const trie &lhs, const trie &rhs) {
-    return !(lhs > rhs);
+    //return !(lhs > rhs);
+    vector<string> words1 = rhs.search_by_prefix("");
+    vector<string> words2 = lhs.search_by_prefix("");
+    int result = 0;
+    if (words2.size() == 0 && words1.size() == 0) {
+        return true;
+    }
+    if(words2.size()==0){
+        return true;
+    }
+    else {
+        int len;
+        if(words1.size()>words2.size()){
+            len=words2.size();
+        }else{
+            len=words1.size();
+        }
+        for (int i = 0; i < len; i++) {
+            int len1=words1[i].size();
+            int len2=words2[i].size();
+            char* str1=(char*)calloc(len1+3,sizeof(char));
+            //char*  str1 = new char[len1+1];
+            strcpy(str1, words2[i].c_str());
+            char* str2=(char*)calloc(len2+3,sizeof(char));
+            //char*  str2 = new char[len1+1];
+            strcpy(str2, words1[i].c_str());
+            result += strcmp(str2, str1);
+            free(str1);
+            free(str2);
+        }
+        if (result < 0) {
+            return false;
+        } else if (result > 0 || result==0) {
+            return true;
+        }
+    }
 }
 
 bool operator>(const trie &lhs, const trie &rhs) {

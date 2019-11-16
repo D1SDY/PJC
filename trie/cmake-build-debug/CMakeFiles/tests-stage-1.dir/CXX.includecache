@@ -9,13 +9,9 @@
 /Users/antonstriapan/Downloads/trie/trie.cpp
 trie.hpp
 /Users/antonstriapan/Downloads/trie/trie.hpp
-utility
--
 algorithm
 -
-cassert
--
-iostream
+cstring
 -
 stack
 -
