@@ -1,0 +1,38 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Volumes/MacDisk/c++/PJC/symcalc/expr.hpp
+iosfwd
+-
+string
+-
+memory
+-
+map
+-
+exception
+-
+cassert
+-
+
+/Volumes/MacDisk/c++/PJC/symcalc/expr_impl.cpp
+expr_impl.hpp
+/Volumes/MacDisk/c++/PJC/symcalc/expr_impl.hpp
+iostream
+-
+cmath
+-
+limits
+-
+
+/Volumes/MacDisk/c++/PJC/symcalc/expr_impl.hpp
+expr.hpp
+/Volumes/MacDisk/c++/PJC/symcalc/expr.hpp
+iosfwd
+-
+

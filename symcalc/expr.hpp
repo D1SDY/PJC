@@ -181,6 +181,7 @@ std::ostream& operator<<(std::ostream &os, const expr &e);
 
 // Pro bonus print
 struct fmt_expr {
+
     const expr &e;
     expr::WriteFormat fmt;
 };
