@@ -11,7 +11,13 @@ expr.hpp
 /Volumes/MacDisk/c++/PJC/symcalc/expr.hpp
 expr_impl.hpp
 /Volumes/MacDisk/c++/PJC/symcalc/expr_impl.hpp
+tokenizer.hpp
+/Volumes/MacDisk/c++/PJC/symcalc/tokenizer.hpp
 stdexcept
+-
+vector
+-
+queue
 -
 
 /Volumes/MacDisk/c++/PJC/symcalc/expr.hpp
@@ -42,5 +48,13 @@ limits
 expr.hpp
 /Volumes/MacDisk/c++/PJC/symcalc/expr.hpp
 iosfwd
+-
+
+/Volumes/MacDisk/c++/PJC/symcalc/tokenizer.hpp
+iosfwd
+-
+string
+-
+cassert
 -
 

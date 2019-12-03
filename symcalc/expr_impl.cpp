@@ -5,18 +5,20 @@
 #include <limits>
 
 namespace exprs {
-    number::number(double number) : num(number) {}
+    number::number(double number){
+        num=number;
+    }
 
     double number::evaluate(const expr_base::variable_map_t &variables) const {
         return num;
     }
 
     expr number::derive(string const &temp) const {
-        return expr::ZERO;
+        throw std::logic_error("not implemented yet");
     }
 
     expr number::simplify() const {
-        return shared_from_this();
+        throw std::logic_error("not implemented yet");
     }
 
     void number::write(ostream &out, expr_base::WriteFormat fmt) const {

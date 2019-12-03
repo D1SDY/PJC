@@ -18,6 +18,7 @@ CMakeFiles/symcalc.dir/cmdline.cpp.o: ../expr.hpp
 CMakeFiles/symcalc.dir/expr.cpp.o: ../expr.cpp
 CMakeFiles/symcalc.dir/expr.cpp.o: ../expr.hpp
 CMakeFiles/symcalc.dir/expr.cpp.o: ../expr_impl.hpp
+CMakeFiles/symcalc.dir/expr.cpp.o: ../tokenizer.hpp
 
 CMakeFiles/symcalc.dir/expr_impl.cpp.o: ../expr.hpp
 CMakeFiles/symcalc.dir/expr_impl.cpp.o: ../expr_impl.cpp

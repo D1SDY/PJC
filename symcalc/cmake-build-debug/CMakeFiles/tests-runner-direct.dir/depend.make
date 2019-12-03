@@ -18,6 +18,7 @@ CMakeFiles/tests-runner-direct.dir/cmdline.cpp.o: ../expr.hpp
 CMakeFiles/tests-runner-direct.dir/expr.cpp.o: ../expr.cpp
 CMakeFiles/tests-runner-direct.dir/expr.cpp.o: ../expr.hpp
 CMakeFiles/tests-runner-direct.dir/expr.cpp.o: ../expr_impl.hpp
+CMakeFiles/tests-runner-direct.dir/expr.cpp.o: ../tokenizer.hpp
 
 CMakeFiles/tests-runner-direct.dir/expr_impl.cpp.o: ../expr.hpp
 CMakeFiles/tests-runner-direct.dir/expr_impl.cpp.o: ../expr_impl.cpp

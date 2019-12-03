@@ -16,14 +16,14 @@ namespace exprs {
         bool equals(const expr_base &variable) const  override;
         double num;
     public:
-        explicit number(double);
+        number(double);
     };
     class variable:public expr_base{
         friend class expr;
     public:
         string name;
 
-        explicit variable(string);
+        variable(string);
 
     private:
         double evaluate(const variable_map_t &variables) const override;
