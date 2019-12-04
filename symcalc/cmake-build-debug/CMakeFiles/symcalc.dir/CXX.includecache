@@ -15,9 +15,15 @@ tokenizer.hpp
 /Volumes/MacDisk/c++/PJC/symcalc/tokenizer.hpp
 stdexcept
 -
-vector
+stack
 -
 queue
+-
+sstream
+-
+iostream
+-
+vector
 -
 
 /Volumes/MacDisk/c++/PJC/symcalc/expr.hpp

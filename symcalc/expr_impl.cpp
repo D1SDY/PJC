@@ -71,12 +71,12 @@ namespace exprs {
 
     void expr_plus::write(ostream &out, expr_base::WriteFormat fmt) const {
         if (fmt == WriteFormat::Postfix) {
-            out << "( " << fmt_expr{first, fmt} << " " << fmt_expr{second, fmt} << " + )";
+            out << "(" << fmt_expr{first, fmt} << " " << fmt_expr{second, fmt} << " +)";
         }
         if (fmt == WriteFormat::Infix) {
-            out << "( " << fmt_expr{first, fmt} << " + " << fmt_expr{second, fmt} << " )";
+            out << "(" << fmt_expr{first, fmt} << " + " << fmt_expr{second, fmt} << ")";
         } else {
-            out << "( + " << fmt_expr{first, fmt} << " " << fmt_expr{second, fmt} << " )";
+            out << "(+ " << fmt_expr{first, fmt} << " " << fmt_expr{second, fmt} << ")";
         }
     }
 
@@ -100,12 +100,12 @@ namespace exprs {
 
     void expr_minus::write(ostream &out, expr_base::WriteFormat fmt) const {
         if (fmt == WriteFormat::Postfix) {
-            out << "( " << fmt_expr{first, fmt} << " " << fmt_expr{second, fmt} << " - )";
+            out << "(" << fmt_expr{first, fmt} << " " << fmt_expr{second, fmt} << " -)";
         }
         if (fmt == WriteFormat::Infix) {
-            out << "( " << fmt_expr{first, fmt} << " - " << fmt_expr{second, fmt} << " )";
+            out << "(" << fmt_expr{first, fmt} << " - " << fmt_expr{second, fmt} << ")";
         } else {
-            out << "( - " << fmt_expr{first, fmt} << " " << fmt_expr{second, fmt} << " )";
+            out << "(- " << fmt_expr{first, fmt} << " " << fmt_expr{second, fmt} << ")";
         }
 
     }
@@ -130,12 +130,12 @@ namespace exprs {
 
     void expr_multiply::write(ostream &out, expr_base::WriteFormat fmt) const {
         if (fmt == WriteFormat::Postfix) {
-            out << "( " << fmt_expr{first, fmt} << " " << fmt_expr{second, fmt} << " * )";
+            out << "(" << fmt_expr{first, fmt} << " " << fmt_expr{second, fmt} << " *)";
         }
         if (fmt == WriteFormat::Infix) {
-            out << "( " << fmt_expr{first, fmt} << " * " << fmt_expr{second, fmt} << " )";
+            out << "(" << fmt_expr{first, fmt} << " * " << fmt_expr{second, fmt} << ")";
         } else {
-            out << "( * " << fmt_expr{first, fmt} << " " << fmt_expr{second, fmt} << " )";
+            out << "(* " << fmt_expr{first, fmt} << " " << fmt_expr{second, fmt} << ")";
         }
     }
 
@@ -159,12 +159,12 @@ namespace exprs {
 
     void expr_divide::write(ostream &out, expr_base::WriteFormat fmt) const {
         if (fmt == WriteFormat::Postfix) {
-            out << "( " << fmt_expr{first, fmt} << " " << fmt_expr{second, fmt} << " / )";
+            out << "(" << fmt_expr{first, fmt} << " " << fmt_expr{second, fmt} << " /)";
         }
         if (fmt == WriteFormat::Infix) {
-            out << "( " << fmt_expr{first, fmt} << " / " << fmt_expr{second, fmt} << " )";
+            out << "(" << fmt_expr{first, fmt} << " / " << fmt_expr{second, fmt} << ")";
         } else {
-            out << "( / " << fmt_expr{first, fmt} << " " << fmt_expr{second, fmt} << " )";
+            out << "(/ " << fmt_expr{first, fmt} << " " << fmt_expr{second, fmt} << ")";
         }
     }
 
@@ -188,12 +188,12 @@ namespace exprs {
 
     void expr_pow::write(ostream &out, expr_base::WriteFormat fmt) const {
         if (fmt == WriteFormat::Postfix) {
-            out << "( " << fmt_expr{first, fmt} << " " << fmt_expr{second, fmt} << " ^ )";
+            out << "(" << fmt_expr{first, fmt} << " " << fmt_expr{second, fmt} << " ^)";
         }
         if (fmt == WriteFormat::Infix) {
-            out << "( " << fmt_expr{first, fmt} << " ^ " << fmt_expr{second, fmt} << " ) ";
+            out << "(" << fmt_expr{first, fmt} << " ^ " << fmt_expr{second, fmt} << ") ";
         } else {
-            out << "( ^ " << fmt_expr{first, fmt} << " " << fmt_expr{second, fmt} << " )";
+            out << "(^ " << fmt_expr{first, fmt} << " " << fmt_expr{second, fmt} << ")";
         }
     }
 
@@ -213,12 +213,12 @@ namespace exprs {
 
     void expr_sin::write(ostream &out, expr_base::WriteFormat fmt) const {
         if (fmt == WriteFormat::Postfix) {
-            out << "( " << fmt_expr{first, fmt} << " sin )";
+            out << "(" << fmt_expr{first, fmt} << " sin)";
         }
         if (fmt == WriteFormat::Infix) {
-            out << "sin ( " << fmt_expr{first, fmt} << " )";
+            out << "sin (" << fmt_expr{first, fmt} << ")";
         } else {
-            out << "( sin " << fmt_expr{first, fmt} << " )";
+            out << "(sin " << fmt_expr{first, fmt} << ")";
         }
 
     }
@@ -243,12 +243,12 @@ namespace exprs {
 
     void expr_cos::write(ostream &out, expr_base::WriteFormat fmt) const {
         if (fmt == WriteFormat::Postfix) {
-            out << "( " << fmt_expr{first, fmt} << " cos )";
+            out << "(" << fmt_expr{first, fmt} << " cos)";
         }
         if (fmt == WriteFormat::Infix) {
-            out << "cos ( " << fmt_expr{first, fmt} << " )";
+            out << "cos (" << fmt_expr{first, fmt} << ")";
         } else {
-            out << "( sin " << fmt_expr{first, fmt} << " )";
+            out << "(cos " << fmt_expr{first, fmt} << ")";
         }
     }
 
@@ -272,12 +272,12 @@ namespace exprs {
 
     void expr_log::write(ostream &out, expr_base::WriteFormat fmt) const {
         if (fmt == WriteFormat::Postfix) {
-            out << "( " << fmt_expr{first, fmt} << " log )";
+            out << "(" << fmt_expr{first, fmt} << " log)";
         }
         if (fmt == WriteFormat::Infix) {
-            out << "log ( " << fmt_expr{first, fmt} << " )";
+            out << "log (" << fmt_expr{first, fmt} << ")";
         } else {
-            out << "( log " << fmt_expr{first, fmt} << " )";
+            out << "(log " << fmt_expr{first, fmt} << ")";
         }
     }
 
