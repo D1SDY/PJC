@@ -10,22 +10,23 @@ void process_expr(std::ostream &os, expr initial_expr, vector<Commands::Command>
     for (const auto &cmd : commands) {
         using namespace Commands;
         cmd.match(
-            [&](Commands::Derive const &derive) {
-                // TODO
-            },
-            [&](Commands::Simplify const &) {
-                // TODO
-            },
-            [&](Commands::Evaluate const &evaluate) {
-                // TODO
-            },
-            [&](Commands::Print const &p) {
-                // TODO
-            }
+                [&](Commands::Derive const &derive) {
+                    throw std::logic_error("not implemented yet");
+                },
+                [&](Commands::Simplify const &) {
+                    throw std::logic_error("not implemented yet");
+                },
+                [&](Commands::Evaluate const &evaluate) {
+                    throw std::logic_error("not implemented yet");
+                },
+                [&](Commands::Print const &p) {
+                    os << e << endl;
+                }
         );
     }
 }
 
 void handle_expr_line(std::ostream &os, std::string const &line, vector<Commands::Command> const &commands) {
-    // TODO
+    expr temp = create_expression_tree(line);
+    process_expr(os, temp, commands);
 }
