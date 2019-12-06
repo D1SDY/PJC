@@ -343,7 +343,7 @@ namespace exprs {
 
     double expr_sin::evaluate(const expr_base::variable_map_t &variables) const {
         double temp=first->evaluate(variables);
-        return sin(temp*PI/180);
+        return sin(temp);
     }
 
     expr expr_sin::derive(string const &temp) const {
