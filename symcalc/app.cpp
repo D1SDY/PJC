@@ -7,11 +7,12 @@ using namespace std;
 
 void process_expr(std::ostream &os, expr initial_expr, vector<Commands::Command> const &commands) {
     expr e = std::move(initial_expr);
+    expr::WriteFormat writeFormat;
     for (const auto &cmd : commands) {
         using namespace Commands;
         cmd.match(
                 [&](Commands::Derive const &derive) {
-                    e=e->derive(derive.variable);
+                    //e=e->derive(derive.variable);
                 },
                 [&](Commands::Simplify const &) {
                     e=e->simplify();
@@ -20,7 +21,7 @@ void process_expr(std::ostream &os, expr initial_expr, vector<Commands::Command>
                     os<<e->evaluate(evaluate.variables)<<endl;
                 },
                 [&](Commands::Print const &p) {
-                    os << e << endl;
+                  os<<e<<endl;
                 }
         );
     }

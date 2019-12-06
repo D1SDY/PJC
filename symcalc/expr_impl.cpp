@@ -140,10 +140,10 @@ namespace exprs {
     expr expr_minus::simplify() const {
         expr temp1=first->simplify();
         expr temp2=second->simplify();
-        if(second==expr::ZERO){
+        if(temp2==expr::ZERO){
             return temp1;
         }
-        return make_shared<exprs::expr_minus>(expr_minus(temp1,temp2));
+        return temp1-temp2;
     }
 
     bool expr_minus::equals(const expr_base &variable) const {
@@ -198,7 +198,7 @@ namespace exprs {
         }else if(temp2==expr::ONE){
             return temp1;
         }
-        return make_shared<expr_multiply>(expr_multiply(temp1,temp2));
+        return temp1*temp2;
     }
 
     bool expr_multiply::equals(const expr_base &variable) const {
@@ -245,13 +245,17 @@ namespace exprs {
     expr expr_divide::simplify() const {
         expr temp1=first->simplify();
         expr temp2=second->simplify();
+        if(temp1==expr::ZERO&&temp2==expr::ZERO){
+            return expr::ZERO/expr::ZERO;
+        }
         if(temp2==expr::ONE){
             return temp1;
         }
         if(temp1==expr::ZERO){
             return expr::ZERO;
         }
-        return make_shared<exprs::expr_divide>(expr_divide(first,second));
+
+        return temp1/temp2;
     }
 
     bool expr_divide::equals(const expr_base &variable) const {
@@ -355,7 +359,7 @@ namespace exprs {
             out << "(" << fmt_expr{first, fmt} << " sin)";
         }
         if (fmt == WriteFormat::Infix) {
-            out << "sin (" << fmt_expr{first, fmt} << ")";
+            out << "sin(" << fmt_expr{first, fmt} << ")";
         } else {
             out << "(sin " << fmt_expr{first, fmt} << ")";
         }
@@ -370,8 +374,6 @@ namespace exprs {
             }else{
                 return false;
             }
-        }else{
-            return false;
         }
         return false;
     }
@@ -396,7 +398,7 @@ namespace exprs {
             out << "(" << fmt_expr{first, fmt} << " cos)";
         }
         if (fmt == WriteFormat::Infix) {
-            out << "cos (" << fmt_expr{first, fmt} << ")";
+            out << "cos(" << fmt_expr{first, fmt} << ")";
         } else {
             out << "(cos " << fmt_expr{first, fmt} << ")";
         }
@@ -410,8 +412,6 @@ namespace exprs {
             }else{
                 return false;
             }
-        }else{
-            return false;
         }
         return false;
 
@@ -447,7 +447,7 @@ namespace exprs {
             out << "(" << fmt_expr{first, fmt} << " log)";
         }
         if (fmt == WriteFormat::Infix) {
-            out << "log (" << fmt_expr{first, fmt} << ")";
+            out << "log(" << fmt_expr{first, fmt} << ")";
         } else {
             out << "(log " << fmt_expr{first, fmt} << ")";
         }

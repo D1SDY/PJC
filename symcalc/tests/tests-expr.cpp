@@ -149,7 +149,8 @@ TEST_CASE("Parsing and writing", "[parse_write][valid]") {
     for (const auto &test : s_test_data) {
         SECTION(test.input) {
             INFO("For input: " << test.input);
-            REQUIRE(parse_and_write(test.input) == test.expected);
+            auto str=parse_and_write(test.input);
+            REQUIRE(str == test.expected);
         }
     }
 }
@@ -210,7 +211,8 @@ TEST_CASE("Simplify", "[simplify][valid]") {
     for (const auto &test : s_test_data) {
         SECTION(test.input) {
             INFO("For input: " << test.input);
-            REQUIRE(test_simplify(test.input) == test.expected);
+            auto got=test_simplify(test.input);
+            REQUIRE(got == test.expected);
         }
     }
 }
