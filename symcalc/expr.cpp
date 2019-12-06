@@ -10,6 +10,7 @@ using namespace std;
 
 const expr expr::ZERO = expr::number(0.0);
 const expr expr::ONE = expr::number(1.0);
+const expr expr::TWO = expr::number(2.0);
 
 struct node {
     node(Token token) : token(token) {}

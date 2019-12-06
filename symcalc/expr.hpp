@@ -132,6 +132,7 @@ public:
 
     static const expr ZERO;
     static const expr ONE;
+    static const expr TWO;
 
     /*
      * Implicitly convertible from the internal shared ptr.
@@ -159,7 +160,10 @@ public:
     // implicitly convertible to the internal shared ptr, implement operator->
     // that means you can call methods directly via `expr`, e.g. `e->simplify()`
     operator const_pointer const &() const {return ptr;}
-    const expr_base* operator->() const {assert(ptr.get() != nullptr); return ptr.get();}
+    const expr_base* operator->() const {
+        assert(ptr.get() != nullptr);
+        return ptr.get();
+    }
 private:
     const_pointer ptr;
 };

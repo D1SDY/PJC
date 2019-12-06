@@ -12,7 +12,7 @@ void process_expr(std::ostream &os, expr initial_expr, vector<Commands::Command>
         using namespace Commands;
         cmd.match(
                 [&](Commands::Derive const &derive) {
-                    //e=e->derive(derive.variable);
+                    e=e->derive(derive.variable);
                 },
                 [&](Commands::Simplify const &) {
                     e=e->simplify();
@@ -21,7 +21,16 @@ void process_expr(std::ostream &os, expr initial_expr, vector<Commands::Command>
                     os<<e->evaluate(evaluate.variables)<<endl;
                 },
                 [&](Commands::Print const &p) {
-                  os<<e<<endl;
+                  if(p.format==Commands::Print::Format::Prefix){
+                      writeFormat=expr::WriteFormat::Prefix;
+                  }
+                  if(p.format==Commands::Print::Format::Infix){
+                      writeFormat=expr::WriteFormat::Infix;
+                  }
+                  if(p.format==Commands::Print::Format::Postfix){
+                      writeFormat=expr::WriteFormat::Postfix;
+                  }
+                  os<<fmt_expr{e,writeFormat}<<endl;
                 }
         );
     }

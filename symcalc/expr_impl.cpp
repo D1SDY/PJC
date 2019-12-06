@@ -13,7 +13,7 @@ namespace exprs {
     }
 
     expr number::derive(string const &temp) const {
-        throw std::logic_error("not implemented yet tyt1");
+        return expr::ZERO;
     }
 
     expr number::simplify() const {
@@ -38,11 +38,6 @@ namespace exprs {
 
 
     double variable::evaluate(const expr_base::variable_map_t &variables) const {
-//        if(variables.find(name)==variables.end()||variables.empty()){
-//            throw unbound_variable_exception("variable wasnt defined");
-//        }else{
-//            return variables.at(name);
-//        }
         try{
             return variables.at(name);
         }catch(exception){
@@ -51,7 +46,10 @@ namespace exprs {
     }
 
     expr variable::derive(string const &temp) const {
-        throw std::logic_error("not implemented yet tut3");
+        if(this->name==temp){
+            return expr::ONE;
+        }
+        return expr::ZERO;
     }
 
     expr variable::simplify() const {
@@ -83,7 +81,9 @@ namespace exprs {
     }
 
     expr expr_plus::derive(string const &temp) const {
-        throw std::logic_error("not implemented yet 1");
+        expr temp1=first->derive(temp);
+        expr temp2=second->derive(temp);
+        return temp1+temp2;
     }
 
     expr expr_plus::simplify() const {
@@ -134,7 +134,9 @@ namespace exprs {
     }
 
     expr expr_minus::derive(string const &temp) const {
-        throw std::logic_error("not implemented yet 3");
+        expr temp1=first->derive(temp);
+        expr temp2=second->derive(temp);
+        return temp1-temp2;
     }
 
     expr expr_minus::simplify() const {
@@ -184,7 +186,9 @@ namespace exprs {
     }
 
     expr expr_multiply::derive(string const &temp) const {
-        throw std::logic_error("not implemented yet 5");
+        expr temp1=first->derive(temp);
+        expr temp2=second->derive(temp);
+        return temp1*second+first*temp2;
     }
 
     expr expr_multiply::simplify() const {
@@ -239,7 +243,10 @@ namespace exprs {
     }
 
     expr expr_divide::derive(string const &temp) const {
-        throw std::logic_error("not implemented yet 8");
+        expr temp1=first->derive(temp);
+        expr temp2=second->derive(temp);
+        return (temp1*second-first*temp2)/(pow(second,expr::TWO));
+
     }
 
     expr expr_divide::simplify() const {
@@ -295,7 +302,9 @@ namespace exprs {
     }
 
     expr expr_pow::derive(string const &temp) const {
-        throw std::logic_error("not implemented yet 9");
+        expr temp1=first->derive(temp);
+        expr temp2=second->derive(temp);
+        return pow(first,second)*(((temp1*second)/first)+log(first)*temp2);
     }
 
     expr expr_pow::simplify() const {
@@ -347,7 +356,7 @@ namespace exprs {
     }
 
     expr expr_sin::derive(string const &temp) const {
-        throw std::logic_error("not implemented yet 11");
+        return cos(first)*first->derive(temp);
     }
 
     expr expr_sin::simplify() const {
@@ -386,7 +395,7 @@ namespace exprs {
     }
 
     expr expr_cos::derive(string const &temp) const {
-        throw std::logic_error("not implemented yet 13");
+        return (expr::ZERO-sin(first))*first->derive(temp);
     }
 
     expr expr_cos::simplify() const {
@@ -429,7 +438,7 @@ namespace exprs {
     }
 
     expr expr_log::derive(string const &temp) const {
-        throw std::logic_error("not implemented yet 15");
+        return first->derive(temp)/first;
     }
 
     expr expr_log::simplify() const {
