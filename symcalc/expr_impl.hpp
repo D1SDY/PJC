@@ -16,14 +16,14 @@ namespace exprs {
         bool equals(const expr_base &variable) const  override;
         double num;
     public:
-        number(double);
+        explicit number(double n): num(n){};
     };
     class variable:public expr_base{
         friend class expr;
     public:
         string name;
 
-        variable(string);
+        explicit variable(string str):name(str){};
 
     private:
         double evaluate(const variable_map_t &variables) const override;
@@ -62,8 +62,7 @@ namespace exprs {
     class expr_multiply: public expr_base{
         friend class expr;
     private:
-        expr first;
-        expr second;
+
         double evaluate(const variable_map_t &variables) const override;
         expr derive(string const &temp) const override;
         expr simplify() const override;
@@ -72,6 +71,9 @@ namespace exprs {
 
     public:
         expr_multiply(const expr &, const expr &);
+
+        expr second;
+        expr first;
     };
     class expr_divide: public expr_base{
         friend class expr;

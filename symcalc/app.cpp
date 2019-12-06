@@ -11,13 +11,13 @@ void process_expr(std::ostream &os, expr initial_expr, vector<Commands::Command>
         using namespace Commands;
         cmd.match(
                 [&](Commands::Derive const &derive) {
-                    throw std::logic_error("not implemented yet");
+                    e=e->derive(derive.variable);
                 },
                 [&](Commands::Simplify const &) {
-                    throw std::logic_error("not implemented yet");
+                    e=e->simplify();
                 },
                 [&](Commands::Evaluate const &evaluate) {
-                    throw std::logic_error("not implemented yet");
+                    os<<e->evaluate(evaluate.variables)<<endl;
                 },
                 [&](Commands::Print const &p) {
                     os << e << endl;

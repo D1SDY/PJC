@@ -13,7 +13,6 @@ const expr expr::ONE = expr::number(1.0);
 
 struct node {
     node(Token token) : token(token) {}
-
     Token token;
     node *left = nullptr;
     node *right = nullptr;
@@ -24,10 +23,10 @@ struct node {
 // TODO: overloaded operators +, -, *, /, functions pow, log, sin, cos,
 //       expr::number, expr::variable, operator==, operator<<,
 //       create_expression_tree
-stack<Token> parse(std::string input) {
+stack<Token> findAllTokens(std::string input) {
     istringstream stream(input);
     Tokenizer tokenizer = Tokenizer(stream);
-    stack<Token> queue;
+    stack<Token> output;
     stack<Token> stackOfOperators;
     while (true) {
         Token nextToken = tokenizer.next();
@@ -35,7 +34,7 @@ stack<Token> parse(std::string input) {
             break;
         }
         if (nextToken.id == TokenId::Number) {
-            queue.push(nextToken);
+            output.push(nextToken);
         }
         if (nextToken.id == TokenId::Identifier) {
             stackOfOperators.push(nextToken);
@@ -50,7 +49,7 @@ stack<Token> parse(std::string input) {
                                  stackOfOperators.top().is_binary_op()) || stackOfOperators.top().is_binary_op() &&
                                                                            stackOfOperators.top().op_precedence() >
                                                                            nextToken.op_precedence()))) {
-                    queue.push(stackOfOperators.top());
+                    output.push(stackOfOperators.top());
                     stackOfOperators.pop();
                 } else {
                     break;
@@ -64,7 +63,7 @@ stack<Token> parse(std::string input) {
         if (nextToken.id == TokenId::RParen) {
             while (true) {
                 if (stackOfOperators.empty() == false && stackOfOperators.top().id != TokenId::LParen) {
-                    queue.push(stackOfOperators.top());
+                    output.push(stackOfOperators.top());
                     stackOfOperators.pop();
                 } else {
                     break;
@@ -80,17 +79,18 @@ stack<Token> parse(std::string input) {
         if (stackOfOperators.empty()) {
             break;
         }
+
         Token top = stackOfOperators.top();
         if (top.id == TokenId::LParen || top.id == TokenId::RParen) {
             throw parse_error("invalid syntax");
         }
-        queue.push(stackOfOperators.top());
+        output.push(stackOfOperators.top());
         stackOfOperators.pop();
     }
-    if (queue.empty()) {
+    if (output.empty()) {
         throw parse_error("invalid syntax");
     }
-    return queue;
+    return output;
 }
 
 bool node::func() const {
@@ -100,7 +100,16 @@ bool node::func() const {
     if (token.id == TokenId::Number) {
         return false;
     }
-    return (token.identifier == "log" || token.identifier == "sin" || token.identifier == "cos");
+    if(token.identifier=="log"){
+        return true;
+    }
+    if(token.identifier=="cos"){
+        return true;
+    }
+    if(token.identifier=="sin"){
+        return true;
+    }
+    return false;
 }
 
 void deleteTrie(node *temp) {
@@ -123,11 +132,13 @@ void deleteTrie(node *temp) {
 }
 
 expr BuildExprTrie(node *root) {
-    if (root == nullptr) return shared_ptr<expr_base>();
-    expr left = BuildExprTrie(root->left);
-    expr right = BuildExprTrie(root->right);
-    Token token = root->token;
+    if (root == nullptr){
+        return shared_ptr<expr_base>();
+    }
     expr expression;
+    expr right = BuildExprTrie(root->right);
+    expr left = BuildExprTrie(root->left);
+    Token token = root->token;
     if (token.is_binary_op()) {
         if (token.id == TokenId::Plus) {
             expression = make_shared<exprs::expr_plus>(left, right);
@@ -157,13 +168,13 @@ expr BuildExprTrie(node *root) {
 }
 
 expr create_expression_tree(const string &expression) {
-    stack<Token> ArgumentsQueue = parse(expression);
-    node *m_root = new node(ArgumentsQueue.top());
-    ArgumentsQueue.pop();
-    node *current = m_root;
+    stack<Token> argumentsQueue = findAllTokens(expression);
+    node* m_root = new node(argumentsQueue.top());
+    node* current = m_root;
+    argumentsQueue.pop();
 
     while (true) {
-        if (ArgumentsQueue.empty() == true) {
+        if (argumentsQueue.empty() == true) {
             break;
         }
         while (true) {
@@ -177,10 +188,6 @@ expr create_expression_tree(const string &expression) {
                 break;
             }
         }
-        if (current == nullptr) {
-            deleteTrie(m_root);
-            throw parse_error("invalid syntax");
-        }
         if(m_root->left== nullptr){
             if(m_root->token.is_binary_op()==false){
                 if(m_root->func()==false){
@@ -189,7 +196,11 @@ expr create_expression_tree(const string &expression) {
                 }
             }
         }
-        node *temp = new node(ArgumentsQueue.top());
+        if (current == nullptr) {
+            deleteTrie(m_root);
+            throw parse_error("invalid syntax");
+        }
+        node *temp = new node(argumentsQueue.top());
         if (current != nullptr && current->right == nullptr && current->func() == false) {
             current->right = temp;
             temp->parent = current;
@@ -197,11 +208,12 @@ expr create_expression_tree(const string &expression) {
             current->left = temp;
             temp->parent = current;
         }
+
         if (temp->token.is_binary_op() || temp->func()) {
             current = temp;
         }
 
-        ArgumentsQueue.pop();
+        argumentsQueue.pop();
     }
 
     if (m_root->token.is_binary_op()) {
@@ -218,7 +230,6 @@ expr create_expression_tree(const string &expression) {
     }
     expr result = BuildExprTrie(m_root);
     deleteTrie(m_root);
-
     return result;
 }
 expr expr::number(double n) {

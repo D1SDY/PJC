@@ -524,16 +524,6 @@ algorithm
 functional
 -
 
-/Volumes/MacDisk/c++/PJC/symcalc/tests/tests-expr-long.cpp
-tests.hpp
-/Volumes/MacDisk/c++/PJC/symcalc/tests/tests.hpp
-runner.hpp
-/Volumes/MacDisk/c++/PJC/symcalc/tests/runner.hpp
-cmdline.hpp
-/Volumes/MacDisk/c++/PJC/symcalc/tests/cmdline.hpp
-catch.hpp
-/Volumes/MacDisk/c++/PJC/symcalc/tests/catch.hpp
-
 /Volumes/MacDisk/c++/PJC/symcalc/tests/tests-expr.cpp
 runner.hpp
 /Volumes/MacDisk/c++/PJC/symcalc/tests/runner.hpp
@@ -547,10 +537,6 @@ catch.hpp
 /Volumes/MacDisk/c++/PJC/symcalc/tests/catch.hpp
 sstream
 -
-
-/Volumes/MacDisk/c++/PJC/symcalc/tests/tests-main.cpp
-catch.hpp
-/Volumes/MacDisk/c++/PJC/symcalc/tests/catch.hpp
 
 /Volumes/MacDisk/c++/PJC/symcalc/tests/tests.hpp
 cmdline.hpp
