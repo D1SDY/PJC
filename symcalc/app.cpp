@@ -29,6 +29,8 @@ void process_expr(std::ostream &os, expr initial_expr, vector<Commands::Command>
                   }
                   if(p.format==Commands::Print::Format::Postfix){
                       writeFormat=expr::WriteFormat::Postfix;
+                  }else{
+                      writeFormat=expr::WriteFormat::Prefix;
                   }
                   os<<fmt_expr{e,writeFormat}<<endl;
                 }

@@ -45,11 +45,8 @@ stack<Token> findAllTokens(std::string input) {
             while (true) {
                 if (stackOfOperators.empty() != true && stackOfOperators.top().id != TokenId::LParen && (
                         stackOfOperators.top().id == TokenId::Identifier || (
-                                (stackOfOperators.top().op_precedence() == nextToken.op_precedence() &&
-                                 stackOfOperators.top().associativity() == Associativity::Left &&
-                                 stackOfOperators.top().is_binary_op()) || stackOfOperators.top().is_binary_op() &&
-                                                                           stackOfOperators.top().op_precedence() >
-                                                                           nextToken.op_precedence()))) {
+                                (stackOfOperators.top().op_precedence() == nextToken.op_precedence() && stackOfOperators.top().associativity() == Associativity::Left && stackOfOperators.top().is_binary_op()) || stackOfOperators.top().is_binary_op() &&
+                                stackOfOperators.top().op_precedence() >nextToken.op_precedence()))) {
                     output.push(stackOfOperators.top());
                     stackOfOperators.pop();
                 } else {

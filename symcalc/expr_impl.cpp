@@ -284,7 +284,7 @@ namespace exprs {
 
     void expr_divide::write(ostream &out, expr_base::WriteFormat fmt) const {
         if (fmt == WriteFormat::Postfix) {
-            out << "(" << fmt_expr{first, fmt} << " " << fmt_expr{second, fmt} << " /)";
+            out << fmt_expr{first, fmt} << " " << fmt_expr{second, fmt} << " /";
         }
         if (fmt == WriteFormat::Infix) {
             out << "(" << fmt_expr{first, fmt} << " / " << fmt_expr{second, fmt} << ")";
@@ -365,7 +365,7 @@ namespace exprs {
 
     void expr_sin::write(ostream &out, expr_base::WriteFormat fmt) const {
         if (fmt == WriteFormat::Postfix) {
-            out << "(" << fmt_expr{first, fmt} << " sin)";
+            out  <<"("<< fmt_expr{first, fmt} << " sin)"<<endl;
         }
         if (fmt == WriteFormat::Infix) {
             out << "sin(" << fmt_expr{first, fmt} << ")";
