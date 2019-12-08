@@ -449,8 +449,6 @@ cassert
 -
 
 /Volumes/MacDisk/c++/PJC/flatset/flatset.hpp
-vector
--
 iostream
 -
 cstddef
